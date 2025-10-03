@@ -1,7 +1,14 @@
-const LoginPage = () => {
-  return (
-    <div>login.page</div>
-  )
-}
+import { useAuthActions } from "../../hooks/use-auth-actions";
 
-export default LoginPage
+const LoginPage = () => {
+  const { loginWithGoogle } = useAuthActions();
+
+  return (
+    <>
+      <h1>LoginPage</h1>
+      <button onClick={loginWithGoogle}>Login with Google</button>
+    </>
+  );
+};
+
+export default LoginPage;
