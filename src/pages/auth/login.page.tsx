@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useAuthActions } from "../../hooks/use-auth-actions";
 
 const LoginPage = () => {
@@ -5,8 +6,8 @@ const LoginPage = () => {
 
   return (
     <>
-      <h1>LoginPage</h1>
-      <button onClick={loginWithGoogle}>Login with Google</button>
+      <h1 className="text-center">LoginPage</h1>
+      <Button onClick={loginWithGoogle}>Login with Google</Button>
     </>
   );
 };
