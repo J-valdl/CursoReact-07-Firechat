@@ -1,28 +1,15 @@
-import { Button } from "@/components/ui/button";
-import { useAuthActions } from "../../hooks/use-auth-actions";
+import CardFooterAuth from "@/components/card-footer-auth";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { toast } from "sonner";
+import { useAuthActions } from "@/hooks/use-auth-actions";
 
 const LoginPage = () => {
-  const { loginWithGoogle } = useAuthActions();
-
-  const handleLoginWithGoogle = async () => {
-    const result = await loginWithGoogle();
-    if (result.success) {
-      console.log("Login successful");
-      toast.success("Login successful"); // Mostrar notificación de éxito
-    } else {
-      console.error("Login failed:", result.error);
-      toast.error(`Login failed: ${result.error}`); // Mostrar notificación de error
-    }
-  };
+  const { loading } = useAuthActions();
 
   return (
     <>
@@ -34,11 +21,7 @@ const LoginPage = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>...</CardContent>
-        <CardFooter>
-          <Button className="w-full" onClick={handleLoginWithGoogle}>
-            Login with Google
-          </Button>
-        </CardFooter>
+        <CardFooterAuth type="login" loading={loading} />
       </Card>
     </>
   );
