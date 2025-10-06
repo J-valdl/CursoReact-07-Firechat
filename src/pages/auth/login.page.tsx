@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { toast } from "sonner";
 
 const LoginPage = () => {
   const { loginWithGoogle } = useAuthActions();
@@ -16,8 +17,10 @@ const LoginPage = () => {
     const result = await loginWithGoogle();
     if (result.success) {
       console.log("Login successful");
+      toast.success("Login successful"); // Mostrar notificación de éxito
     } else {
       console.error("Login failed:", result.error);
+      toast.error(`Login failed: ${result.error}`); // Mostrar notificación de error
     }
   };
 
@@ -32,11 +35,7 @@ const LoginPage = () => {
         </CardHeader>
         <CardContent>...</CardContent>
         <CardFooter>
-          <Button
-            variant="outline"
-            className="w-full"
-            onClick={handleLoginWithGoogle}
-          >
+          <Button className="w-full" onClick={handleLoginWithGoogle}>
             Login with Google
           </Button>
         </CardFooter>
