@@ -58,8 +58,7 @@ export const useAuthActions = () => {
       }
 
       // Forzar la recarga del usuario para sincronizar con ReactFire
-      // Se utiliza en videos siguientes
-      //await currentUser.user.reload();
+      await currentUser.user.reload();
 
       return {
         success: true,
