@@ -1,6 +1,7 @@
 import Navbar from "@/components/navbar";
+import { Suspense } from "react";
 import { Navigate, Outlet } from "react-router";
-import { useSigninCheck } from "reactfire";
+import { useSigninCheck, useUser } from "reactfire";
 
 const AdminLayout = () => {
   const { status, data: signInCheckResult, hasEmitted } = useSigninCheck();
@@ -17,12 +18,26 @@ const AdminLayout = () => {
 
   return (
     <>
-      <Navbar />
-      <div className="container mx-auto p-4">
-        <Outlet />
-      </div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <AuthenticatedLayout />
+      </Suspense>
     </>
   );
 };
 
 export default AdminLayout;
+
+const AuthenticatedLayout = () => {
+  useUser({
+    suspense: true,
+  });
+
+  return (
+    <div>
+      <Navbar />
+      <div className="container mx-auto p-4">
+        <Outlet />
+      </div>
+    </div>
+  );
+};

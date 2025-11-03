@@ -26,3 +26,25 @@ export const registerZodSchema = z
   });
 
 export type RegisterZodSchemaType = z.infer<typeof registerZodSchema>;
+
+export const profileFormSchema = z.object({
+  displayName: z
+    .string()
+    .min(1, "Display name is required")
+    .max(50, "Display name must be at most 50 characters long"),
+  photoURL: z.union([z.url("Invalid URL format"), z.literal("")]).optional(),
+});
+
+export type ProfileZodSchemaType = z.infer<typeof profileFormSchema>;
+
+export const taskZodSchema = z.object({
+  title: z
+    .string()
+    .min(1, "Title is required")
+    .max(100, "Title must be at most 100 characters long"),
+  description: z
+    .string()
+    .max(500, "Description must be at most 500 characters long")
+    .optional(),
+});
+export type TaskZodSchemaType = z.infer<typeof taskZodSchema>;
