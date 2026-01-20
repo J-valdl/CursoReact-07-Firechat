@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import type { AuthError } from "firebase/auth";
 import { useUser } from "reactfire";
-//import { useUserActions } from "./use-user-actions";
+import { useUserActions } from "./use-user-actions";
 
 /**
  * Hook personalizado para manejar las acciones del perfil de usuario
@@ -12,7 +12,7 @@ import { useUser } from "reactfire";
 export const useProfileActions = () => {
   const [loading, setLoading] = useState(false);
   const { data: user } = useUser();
-  //const { createOrUpdateUser } = useUserActions();
+  const { createOrUpdateUser } = useUserActions();
 
   /**
    * Actualiza el perfil del usuario en Firebase Auth y sincroniza con Firestore
@@ -36,7 +36,7 @@ export const useProfileActions = () => {
       });
 
       // Sincronizar los cambios con Firestore
-      //await createOrUpdateUser(user);
+      await createOrUpdateUser({ ...user, ...profileData });
 
       // Recargar el usuario para que ReactFire detecte los cambios
       await user.reload();

@@ -9,6 +9,7 @@ import {
 import { type AuthError } from "firebase/auth";
 import { useState } from "react";
 import { useAuth } from "reactfire";
+import { useUserActions } from "./use-user-actions";
 
 interface AuthActionsResponse {
   success: boolean;
@@ -18,6 +19,8 @@ interface AuthActionsResponse {
 export const useAuthActions = () => {
   const [loading, setLoading] = useState(false);
   const auth = useAuth();
+
+  const { createOrUpdateUser } = useUserActions();
 
   const login = async (data: {
     email: string;
@@ -57,6 +60,8 @@ export const useAuthActions = () => {
         });
       }
 
+      await createOrUpdateUser(currentUser.user);
+
       // Forzar la recarga del usuario para sincronizar con ReactFire
       await currentUser.user.reload();
 
@@ -79,7 +84,8 @@ export const useAuthActions = () => {
     setLoading(true);
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
+      const data = await signInWithPopup(auth, provider);
+      await createOrUpdateUser(data.user);
       return {
         success: true,
         error: null,
