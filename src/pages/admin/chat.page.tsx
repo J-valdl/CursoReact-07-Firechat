@@ -1,8 +1,33 @@
+import MessagesChat from "@/components/chat/messages-chat";
+import RoomChat from "@/components/chat/room-chat";
+import { Suspense, useState } from "react";
 
 const ChatPage = () => {
-  return (
-    <div>chat.page</div>
-  )
-}
+  const [roomId, setRoomId] = useState("");
 
-export default ChatPage
+  const handleSelectedRoomId = (roomId: string) => {
+    setRoomId(roomId);
+  };
+
+  return (
+    <div>
+      <div className="grid grid-cols-1 md:grid-cols-2">
+        <section>
+          <Suspense fallback={<div>Cargando rooms...</div>}>
+            <RoomChat handleSelectedRoomId={handleSelectedRoomId} />
+          </Suspense>
+        </section>
+        <section>
+          {roomId ? (
+            <Suspense fallback={<div>Cargando mensajes...</div>}>
+              <MessagesChat roomId={roomId} />
+            </Suspense>
+          ) : (
+            <div>Sin sala seleccionada</div>
+          )}
+        </section>
+      </div>
+    </div>
+  );
+};
+export default ChatPage;
