@@ -48,3 +48,15 @@ export const taskZodSchema = z.object({
     .optional(),
 });
 export type TaskZodSchemaType = z.infer<typeof taskZodSchema>;
+
+export const messageZodSchema = z.object({
+  text: z.string().trim().min(1, "Ingrese algún texto"),
+});
+
+export type MessageZodSchemaType = z.infer<typeof messageZodSchema>;
+
+export const EmailFriendZodSchema = z.object({
+  email: z.string().trim().pipe(z.email("Invalid email format")),
+});
+
+export type EmailFriendZodSchemaType = z.infer<typeof EmailFriendZodSchema>;
