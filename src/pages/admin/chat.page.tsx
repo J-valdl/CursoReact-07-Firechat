@@ -1,6 +1,7 @@
 import MessagesChat from "@/components/chat/messages-chat";
-import RoomChat from "@/components/chat/room-chat";
+import ListRoomChat from "@/components/chat/list-room-chat";
 import { Suspense, useState } from "react";
+import FormMessageChat from "@/components/chat/form-message-chat";
 
 const ChatPage = () => {
   const [roomId, setRoomId] = useState("");
@@ -14,12 +15,13 @@ const ChatPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2">
         <section>
           <Suspense fallback={<div>Cargando rooms...</div>}>
-            <RoomChat handleSelectedRoomId={handleSelectedRoomId} />
+            <ListRoomChat handleSelectedRoomId={handleSelectedRoomId} />
           </Suspense>
         </section>
         <section>
           {roomId ? (
             <Suspense fallback={<div>Cargando mensajes...</div>}>
+              <FormMessageChat roomId={roomId} />
               <MessagesChat roomId={roomId} />
             </Suspense>
           ) : (

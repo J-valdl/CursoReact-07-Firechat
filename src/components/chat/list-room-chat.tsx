@@ -5,15 +5,15 @@ interface Props {
   handleSelectedRoomId: (roomId: string) => void;
 }
 
-const RoomChat = ({ handleSelectedRoomId }: Props) => {
+const ListRoomChat = ({ handleSelectedRoomId }: Props) => {
   const { rooms } = useRoomActions();
 
   return (
     <div>
-      {rooms.map((item) => (
-        <div key={item.id}>
-          <Button onClick={() => handleSelectedRoomId(item.id)}>
-            {item.id}
+      {rooms.map((room) => (
+        <div key={room.id}>
+          <Button onClick={() => handleSelectedRoomId(room.id)}>
+            {room.id}
           </Button>
         </div>
       ))}
@@ -21,4 +21,4 @@ const RoomChat = ({ handleSelectedRoomId }: Props) => {
     </div>
   );
 };
-export default RoomChat;
+export default ListRoomChat;
