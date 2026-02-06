@@ -17,7 +17,7 @@ const ListRoomChat = ({ handleSelectedRoomId }: Props) => {
           handleClickRoomId={handleSelectedRoomId}
         />
       ))}
-      <pre>{JSON.stringify(rooms, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(rooms, null, 2)}</pre> */}
     </div>
   );
 };
